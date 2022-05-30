@@ -1,7 +1,7 @@
 from rest_framework import fields, serializers
 
 from .models import Calculator, VARIABLE_CHOICES
-from .validators import formula_validators
+from .validators import FormulaValidators
 
 
 class CalculatorSerializer(serializers.ModelSerializer):
@@ -10,7 +10,8 @@ class CalculatorSerializer(serializers.ModelSerializer):
 
     def validate(self, validated_data):
         raw_formula = validated_data['formula']
-        validated_formula = formula_validators(raw_formula)
+        formula_validators = FormulaValidators()
+        validated_formula = formula_validators.division_validators(raw_formula)
         return validated_data
 
     class Meta:
