@@ -1,4 +1,4 @@
-class FormulaValidators:
+class RawFormulaValidators:
 
     def division_validators(self, raw_formula):
         index = -1
@@ -22,4 +22,26 @@ class FormulaValidators:
                         if next_elm == '0':
                             raise ZeroDivisionError('ZeroDivisionError occurs when a number is divided by a zero')
         return raw_formula
+
+
+class FormulaValidators:
+
+    def create_formula(self, pre_formula):
+
+        raw_formula_validators = RawFormulaValidators()
+        raw_formula = raw_formula_validators.division_validators(pre_formula)
+        formula_list = list()
+        numb = ''
+        for i in raw_formula:
+            try:
+                int(i)
+                numb += i
+            except:
+                formula_list.append(int(numb))
+                numb = ''
+                formula_list.append(i)
+        formula_list.append(int(numb))
+        return formula_list
+
+
 
